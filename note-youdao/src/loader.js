@@ -1,8 +1,11 @@
 // ==UserScript==
 // @name         note-youdao-plus
-// @namespace    https://github.com/idealism-xxm/tampermonkey/note-youdao
+// @namespace    https://github.com/idealism-xxm/tampermonkey/tree/master/note-youdao
 // @version      0.0.1
+// @icon         https://note.youdao.com/favicon.ico
 // @description  有道云笔记加强功能
+// @supportURL   https://github.com/idealism-xxm/tampermonkey/tree/master/note-youdao
+// @updateURL    https://raw.githubusercontent.com/idealism-xxm/tampermonkey/master/note-youdao/src/loader.js
 // @author       idealism-xxm
 // @match        https://note.youdao.com/web/
 // @grant        none
