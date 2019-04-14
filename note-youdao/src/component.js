@@ -9,7 +9,9 @@ var component = {
         // 上传文件，触发后，会选择文件，并执行上传文件获取url，最后执行回调（回调的第一个参数是文件，第二个参数是上传的url）
         upload: function(accept, callback) {
             // 1. 创建 input 节点
-            $('body').append('<input id="diy-uploader-input" type="file" style="position: absolute; top: -1000px; left: -1000px;" accept="' + accept + '">');
+            if($('#diy-uploader-input').length == 0) {
+                $('body').append('<input id="diy-uploader-input" type="file" style="position: absolute; top: -1000px; left: -1000px;" accept="' + accept + '">');
+            }
 
             // 2. 并绑定点击事件，用于触发 实际执行上传
             var $this = this;
