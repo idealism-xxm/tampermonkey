@@ -30,4 +30,14 @@ var tool = {
     getUrl: function (suffix) {
         return this.prefix + suffix;
     },
+
+    // 触发事件
+    trigger: function (selector, eventName) {
+        // 初始化事件
+        var event = document.createEvent('Event');
+        event.initEvent(eventName, true, true);
+
+        // 触发事件
+        document.querySelector(selector).dispatchEvent(event);
+    },
 };

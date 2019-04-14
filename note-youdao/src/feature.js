@@ -32,10 +32,17 @@ var feature = {
         // 回填页面
         backfillPage: function(file, url) {
             // 填入url
-            $('body > dialog-overlay > div > div > div.widget-dialog-body > markdown-upload-image > div > div:nth-child(2) > div.edit-container > input').val(url);
+            var urlSelector = 'body > dialog-overlay > div > div > div.widget-dialog-body > markdown-upload-image > div > div:nth-child(2) > div.edit-container > input';
+            $(urlSelector).val(url);
+            // 触发 input 事件，更新双向绑定的数据
+            tool.trigger(urlSelector, 'input');
+
             // 填入文件名
+            var nameSelector = 'body > dialog-overlay > div > div > div.widget-dialog-body > markdown-upload-image > div > div:nth-child(3) > div.edit-container > input';
             var name = file.name.substring(0, file.name.lastIndexOf('.'));
-            $('body > dialog-overlay > div > div > div.widget-dialog-body > markdown-upload-image > div > div:nth-child(3) > div.edit-container > input').val(name);
+            $(nameSelector).val(name);
+            // 触发 input 事件，更新双向绑定的数据
+            tool.trigger(nameSelector, 'input');
         },
     },
 };
