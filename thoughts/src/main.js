@@ -19,6 +19,17 @@
         return text.substr(text.indexOf(firstCh), text.lastIndexOf(sufCh))
     }
 
+    let copyText = function (text) {
+        var input = document.createElement("input");
+        input.setAttribute("value", text);
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand("copy");
+        document.body.removeChild(input);
+        console.log('成功复制：' + text)
+    }
+
+
     let relationNodes = []
 
     // 收集关联节点
@@ -101,6 +112,21 @@
         console.log(relationNodes)
     }
 
+    let addEvent = function () {
+        relationNodes.forEach(relationNode => {
+            Array.from(document.querySelectorAll('li[data-key="' + relationNode.sectionKey + '"] span[data-is-teambition] span'))
+                .filter(element => element.innerHTML === relationNode.title)
+                .forEach(element => {
+                    // 按住任意功能键，进入当前元素，则复制 url
+                    element.addEventListener('mouseenter', function(event) {
+                        if (event.ctrlKey || event.altKey || event.metaKey) {
+                            copyText(relationNode.url)
+                        }
+                    })
+                })
+        })
+    }
+
     let onLoad = function (progressEvent) {
         let xhr = progressEvent.target
         // 没有正常获取到结果，则直接返回
@@ -120,4 +146,7 @@
 
         originalOpen.apply(this, arguments);
     };
+    setTimeout(function(){
+        addEvent()
+    }, 5000)
 })();
