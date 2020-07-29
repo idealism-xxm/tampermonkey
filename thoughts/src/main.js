@@ -2,7 +2,7 @@
 // @name         thoughts-plus
 // @namespace    https://github.com/idealism-xxm/tampermonkey/tree/master/thoughts
 // @version      0.0.1
-// @icon         https://www.teambition.com/favicon.ico
+// @icon         https://g.alicdn.com/thoughts/thoughts-front/server/favicon.7d745459.png
 // @description  支持在页面中直接复制链接
 // @supportURL   https://github.com/idealism-xxm/tampermonkey/tree/master/thoughts
 // @updateURL    https://raw.githubusercontent.com/idealism-xxm/tampermonkey/master/thoughts/src/main.js
@@ -81,6 +81,23 @@
                 relationNode.title = taskInfo.title
             }
         })
+    }
+
+    // 收集关联的 thoughts 的信息
+    let collectRelatedThoughts = function (xhr) {
+        let urlReg = /^https:\/\/thoughts\.teambition\.com\/api\/workspaces\/[^/]*\/nodes\/[^/]*\?pageSize=1000&_=.*$/
+        // 非当前函数处理的 url ，则直接返回
+        if (!urlReg.test(xhr.responseURL)) {
+            return
+        }
+
+        let docInfo = xhr.response
+        relationNodes.forEach(relationNode => {
+            if (relationNode.nodeId == docInfo._id) {
+                relationNode.url = 'https://thoughts.teambition.com/workspaces/' + docInfo._workspaceId + '/docs/' + docInfo._id
+                relationNode.title = docInfo.title
+            }
+        })
         console.log(relationNodes)
     }
 
@@ -92,6 +109,7 @@
         }
 
         collectRelationNodes(xhr)
+        collectRelatedThoughts(xhr)
         collectRelatedTeambition(xhr)
     }
 
