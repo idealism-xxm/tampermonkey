@@ -19,14 +19,14 @@
         return text.substr(text.indexOf(firstCh), text.lastIndexOf(sufCh))
     }
 
-    let copyText = function (text) {
-        var input = document.createElement("input");
-        input.setAttribute("value", text);
-        document.body.appendChild(input);
+    let input = document.createElement("input")
+    input.style = 'width: 100%;'
+    document.body.appendChild(input)
+
+    let displayText = function (text) {
+        input.value = text;
+        input.focus();
         input.select();
-        document.execCommand("copy");
-        document.body.removeChild(input);
-        console.log('成功复制：' + text)
     }
 
 
@@ -115,12 +115,12 @@
     let addEvent = function () {
         relationNodes.forEach(relationNode => {
             Array.from(document.querySelectorAll('li[data-key="' + relationNode.sectionKey + '"] span[data-is-teambition] span'))
-                .filter(element => element.innerHTML === relationNode.title)
+                .filter(element => element.innerText == relationNode.title)
                 .forEach(element => {
-                    // 按住任意功能键，进入当前元素，则复制 url
+                    // 按住任意功能键，进入当前元素，则展示 url
                     element.addEventListener('mouseenter', function(event) {
                         if (event.ctrlKey || event.altKey || event.metaKey) {
-                            copyText(relationNode.url)
+                            displayText(relationNode.url)
                         }
                     })
                 })
