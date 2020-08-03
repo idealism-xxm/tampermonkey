@@ -19,14 +19,12 @@
         return text.substr(text.indexOf(firstCh), text.lastIndexOf(sufCh))
     }
 
-    let input = document.createElement("input")
-    input.style = 'width: 100%;'
-    document.body.appendChild(input)
-
-    let displayText = function (text) {
-        input.value = text;
-        input.focus();
-        input.select();
+    let copyText = function (text) {
+        document.body.blur()
+        document.body.focus()
+        navigator.clipboard.writeText(text)
+            .then(() => { console.log(`Copied: ${text}`) })
+            .catch((error) => { console.error(`Copy failed! ${error}`) })
     }
 
 
@@ -120,7 +118,7 @@
                     // 按住任意功能键，进入当前元素，则展示 url
                     element.addEventListener('mouseenter', function(event) {
                         if (event.ctrlKey || event.altKey || event.metaKey) {
-                            displayText(relationNode.url)
+                            copyText(relationNode.url)
                         }
                     })
                 })
