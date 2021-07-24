@@ -211,9 +211,11 @@ const trait = {
         })
     },
 
-    // 点赞制定帖子所有的作业
+    // 点赞指定帖子所有的作业
     likeTopicAllSolutions: function (topicId) {
-        let beginTime = null
+        // 获取上次的运行最后点赞的时间
+        const key = 'likeTopicAllSolutions:' + topicId
+        let beginTime = localStorage.getItem(key)
         while (true) {
             const solutions = api.pageTopicSolutions(topicId, 20, 'asc', beginTime)
             console.log(solutions)
@@ -229,6 +231,8 @@ const trait = {
             })
             beginTime = tool.getNextMsStr(solutions[solutions.length - 1].create_time)
         }
+        // 存储本次运行的最后点赞的时间
+        localStorage.setItem(key, beginTime)
     }
 };
 
