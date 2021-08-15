@@ -25,6 +25,11 @@
         return new Date(Date.parse(time) + 1).toISOString()
     },
 
+    // 获取上一毫秒的时间字符串
+    getPreMsStr: function (time) {
+        return new Date(Date.parse(time) - 1).toISOString()
+    },
+
     // 获取时间戳
     getTimestamp: function () {
         return Math.floor((new Date).getTime() / 1e3)
@@ -219,10 +224,10 @@ const trait = {
         }, timeout)
     },
 
-    // 点赞指定帖子所有的作业
-    likeTopicAllSolutions: function (topicId) {
+    // 点赞指定帖子所有的作业（正序）
+    likeTopicAllSolutionsForward: function (topicId) {
         // 获取上次的运行最后点赞的时间
-        const key = 'likeTopicAllSolutions:' + topicId
+        const key = 'likeTopicAllSolutionsForward:' + topicId
         let beginTime = localStorage.getItem(key)
         // 有限流，所以每秒只点赞 2 次
         let timeout = 0
@@ -249,6 +254,43 @@ const trait = {
         }, timeout)
         // 存储本次运行的最后点赞的时间
         localStorage.setItem(key, beginTime)
+    },
+
+    // 点赞指定帖子所有的作业（倒序）
+    likeTopicAllSolutionsBackward: function (topicId) {
+        // 获取上次的运行最后点赞的时间
+        const key = 'likeTopicAllSolutionsBackward:' + topicId
+        let lastEndTime = localStorage.getItem(key)
+        let endTime = null;
+        let nextEndTime = null;
+        // 有限流，所以每秒只点赞 2 次
+        let timeout = 0
+        while (true) {
+            const solutions = api.pageTopicSolutions(topicId, 20, true, lastEndTime, endTime)
+            console.log(solutions)
+            if (solutions.length === 0) {
+                break
+            }
+            if (!nextEndTime) {
+                nextEndTime = tool.getNextMsStr(solutions[solutions.length - 1].create_time)
+            }
+
+            solutions.forEach(function (solution) {
+                if (!solution.user_specific.liked) {
+                    console.log('已点赞：', 'https://wx.zsxq.com/dweb2/index/topic_detail/' + solution.topic_id)
+                    setTimeout(function () {
+                        api.likeTopic(solution.topic_id)
+                    }, timeout)
+                    timeout += 500
+                }
+            })
+            endTime = tool.getPreMsStr(solutions[solutions.length - 1].create_time)
+        }
+        setTimeout(function () {
+            console.log("【所有点赞已完成】")
+        }, timeout)
+        // 存储本次运行的最后点赞的时间
+        localStorage.setItem(key, nextEndTime)
     }
 };
 
