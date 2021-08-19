@@ -199,7 +199,17 @@ const api = {
     likeTopic: function (topicId) {
         const url = 'https://api.zsxq.com/v2/topics/' + topicId + '/likes'
         return tool.ajaxPost('likeTopic', url, { req_data: {} })
-    }
+    },
+
+    // 获取指定用户的发表的主题分页列表
+    pageUserTopics: function (userId, pageSize, endTime) {
+        pageSize = pageSize || 20
+        let url = 'https://api.zsxq.com/v2/users/' + userId + '/topics/footprint?count=' + pageSize
+        if (endTime) {
+            url += '&end_time=' + encodeURIComponent(endTime)
+        }
+        return tool.ajaxGet('pageUserTopics', url)?.topics || []
+    },
 };
 
 /**
