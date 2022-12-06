@@ -304,11 +304,65 @@ const trait = {
     }
 };
 
+/**
+ * 自定义功能
+ */
+ const feature = {
+    // 点赞指定帖子点赞前 50 的作业
+    likeCurrentTopicAllSolutionsForward: {
+        init: function() {
+            // 1. 作业顶部，加上【雨露均沾】
+            let addMeHtml = '<div class="item-wrapper add-me"><i class="next-icon next-icon-distribute next-medium"><svg viewBox="0 0 1024 1024"><use xlink:href="#at-distribute"></use></svg></i></div>'
+            let MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver
+            // 创建 body 观察者对象
+            var observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    console.log(mutation)
+                    mutation.addedNodes.forEach(function(addedNode) {
+                        // 如果不是 section 或者 不含 icon-users ，则直接返回
+                        if (!addedNode.querySelector) {
+                            return
+                        }
+
+                        authorDivNode = addedNode.querySelector('div.task')
+                        if(!authorDivNode) {
+                            // console.log(addedNode)
+                            return
+                        }
+                        // console.log(mutation)
+                        // console.log(addedNode)
+
+                        // 找到右侧内容，加上【添加我】
+                        let userContentEle = addedNode.querySelector('div.detail-infos-content > div')
+                        userContentEle.append($(addMeHtml)[0])
+                        let addMeEle = userContentEle.querySelector('div.item-wrapper.add-me')
+
+                        // 添加点击事件
+                        addMeEle.onclick = function(e) {
+                            // 点击【添加】按钮
+                            let addButton = userContentEle.querySelector('div[data-role="add-button-text"') || userContentEle.querySelector('span.icon-circle-plus')
+                            addButton.click()
+                            // 获取当前登录用户名
+                            let tbConfig = document.querySelector('#teambition-config')
+                            let currentUserName = JSON.parse(tbConfig.innerText)['user']['name']
+                            setTimeout(function() {
+                                let inputEle = document.querySelector('body > div.slide-enter-done > div > div > div > div.search-input-wrap > div > input')
+                                setInputValue(inputEle, currentUserName)
+                            }, 400)
+                        }
+                    })
+                })
+            })
+            observer.observe(document.body, {'childList': true, 'subtree': true})
+        }
+    }
+ };
+
 (function () {
     'use strict';
 
     window.onload = function () {
-
+        feature.likeCurrentTopicAllSolutionsForward.init();
     }
 
     window.zsqxPlus = { api, tool, trait }
