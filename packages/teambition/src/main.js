@@ -1,11 +1,11 @@
 // ==UserScript==
 // @name         teambition-plus
-// @namespace    https://github.com/idealism-xxm/tampermonkey/tree/master/teambition
+// @namespace    https://github.com/idealism-xxm/tampermonkey/tree/master/packages/teambition
 // @version      0.0.2
 // @icon         https://www.teambition.com/favicon.ico
 // @description  1. 切换迭代时默认取消选中包含子任务 2. 选成员时，支持选择自己
-// @supportURL   https://github.com/idealism-xxm/tampermonkey/tree/master/teambition
-// @updateURL    https://raw.githubusercontent.com/idealism-xxm/tampermonkey/master/teambition/src/main.js
+// @supportURL   https://github.com/idealism-xxm/tampermonkey/tree/master/packages/teambition
+// @updateURL    https://raw.githubusercontent.com/idealism-xxm/tampermonkey/master/packages/teambition/src/main.js
 // @author       idealism-xxm
 // @match        https://www.teambition.com/*
 // ==/UserScript==

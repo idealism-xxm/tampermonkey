@@ -1,11 +1,11 @@
 // ==UserScript==
 // @name         zsxq-plus
-// @namespace    https://github.com/idealism-xxm/tampermonkey/tree/master/zsxq
+// @namespace    https://github.com/idealism-xxm/tampermonkey/tree/master/packages/zsxq
 // @version      0.0.1
 // @icon         https://wx.zsxq.com/dweb2/assets/images/favicon_32.ico
 // @description  知识星球加强功能
-// @supportURL   https://github.com/idealism-xxm/tampermonkey/tree/master/zsxq
-// @updateURL    https://raw.githubusercontent.com/idealism-xxm/tampermonkey/master/zsxq/src/main.js
+// @supportURL   https://github.com/idealism-xxm/tampermonkey/tree/master/packages/zsxq
+// @updateURL    https://raw.githubusercontent.com/idealism-xxm/tampermonkey/master/packages/zsxq/src/main.js
 // @author       idealism-xxm
 // @match        https://wx.zsxq.com/dweb2/*
 // @grant        none

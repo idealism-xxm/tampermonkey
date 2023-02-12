@@ -1,11 +1,11 @@
 // ==UserScript==
 // @name         thoughts-plus
-// @namespace    https://github.com/idealism-xxm/tampermonkey/tree/master/thoughts
+// @namespace    https://github.com/idealism-xxm/tampermonkey/tree/master/packages/thoughts
 // @version      0.0.1
 // @icon         https://g.alicdn.com/thoughts/thoughts-front/server/favicon.7d745459.png
 // @description  支持在页面中直接复制链接
-// @supportURL   https://github.com/idealism-xxm/tampermonkey/tree/master/thoughts
-// @updateURL    https://raw.githubusercontent.com/idealism-xxm/tampermonkey/master/thoughts/src/main.js
+// @supportURL   https://github.com/idealism-xxm/tampermonkey/tree/master/packages/thoughts
+// @updateURL    https://raw.githubusercontent.com/idealism-xxm/tampermonkey/master/packages/thoughts/src/main.js
 // @author       idealism-xxm
 // @match        https://thoughts.teambition.com/*
 // ==/UserScript==
